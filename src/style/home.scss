@@ -1,0 +1,110 @@
+#home{
+	.hot_playing{
+		dl{
+		    margin: 0.17rem 0.17rem 0 0.17rem;
+		    background-color: #f9f9f9;
+		    box-shadow: 0.5px 0.5px 1px #a8a8a8;
+		    cursor: pointer;
+		    dd{
+		    	height: 0.5rem;
+		    	.movie_message{
+		    		float: left;
+	    		    padding-top: 0.13rem;
+    				padding-left: 0.16rem;
+    				p{
+					    font-size: 0.12rem;
+   						line-height: 0.15rem;
+    				}
+    				span{
+    					font-size: 0.08rem;
+					    color: #9a9a9a;
+					    line-height: 0.15rem;
+    				}
+		    	}
+		    	.movie_grade{
+		    		float: right;
+	    		    color: #f78360;
+				    display: inline-block;
+				    line-height: 0.5rem;
+				    margin-right: 0.15rem;
+				    font-size: 0.18rem;
+		    	}
+		    }
+		}
+		.hot_title{
+			text-align: center;
+			padding-top: 0.1rem;
+			button{
+			    width: 1.6rem;
+			    height: 0.3rem;
+			    border: 1px solid #aaa;
+			    border-radius: 0.15rem;
+			    margin: 0.1rem auto 0.3rem;
+			    text-align: center;
+			    line-height: 0.3rem;
+			    font-size: 0.12rem;
+			    color: #616161;
+			    cursor: pointer;
+			}
+		}
+	}
+	.will_playing{
+		.line{
+			position: relative;
+		    margin-bottom: 0.3rem;
+		    border-bottom: 1px solid #a8a8a8;
+		    span{
+		    	display: block;
+			    width: 65px;
+			    height: 0.2rem;
+			    margin: 0 auto;
+			    margin-bottom: -0.1rem;
+			    border-radius: 5px;
+			    font-size: 0.1rem;
+			    line-height: 0.2rem;
+			    text-align: center;
+			    color: #eee;
+			    background-color: #a7a7a7;
+			}
+	    }
+	    dl{
+	    	margin: 0.17rem 0.17rem 0 0.17rem;
+		    background-color: #f9f9f9;
+		    box-shadow: 0.5px 0.5px 1px #a8a8a8;
+		    cursor: pointer;
+	    	dd{
+	    		height: 0.35rem;
+	    		color: #333;
+    			p{
+				    font-size: 0.12rem;
+				    line-height: 0.35rem;
+				    float: left;
+				    padding-left: 0.16rem;
+    			}
+				span{
+					float: right;
+				    font-size: 0.1rem;
+				    color: RGB(245, 162, 125);
+				    line-height: 0.35rem;
+				    padding-right: 0.3rem;
+    			}	
+	    	}
+	    }
+	    .comming_title{
+	    	text-align: center;
+			padding-top: 0.1rem;
+	    	button{
+				width: 1.6rem;
+			    height: 0.3rem;
+			    border: 1px solid #aaa;
+			    border-radius: 0.15rem;
+			    margin: 0.1rem auto 0.3rem;
+			    text-align: center;
+			    line-height: 0.3rem;
+			    font-size: 0.12rem;
+			    color: #616161;
+			    cursor: pointer;
+	    	}
+	    }
+	}
+}
