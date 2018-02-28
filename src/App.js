@@ -13,36 +13,71 @@ import Detail from './components/Detail';
 import Movie from './components/Movie';
 import TodoList from './components/TodoList';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-
+import { Drawer, List, NavBar, Icon } from 'antd-mobile';
+import axios from 'axios';
 class App extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
-      showSide:false
+      open: true,
+      title:[]
     }
-    this.changeSide = this.changeSide.bind(this);
-    this.closeSide = this.closeSide.bind(this);
+    // this.changeSide = this.changeSide.bind(this);
+    // this.closeSide = this.closeSide.bind(this);
   }
-  changeSide () {
-    console.log(this.state.showSide)
-    this.setState({
-      showSide:!this.state.showSide
-    })
+  // changeSide () {
+  //   console.log(this.state.showSide)
+  //   this.setState({
+  //     showSide:!this.state.showSide
+  //   })
+  // }
+  // closeSide() {
+  //   this.setState({
+  //     showSide:false
+  //   })
+  // }
+   onOpenChange = (...args) => {
+    this.setState({ open: !this.state.open });
   }
-  closeSide() {
-    this.setState({
-      showSide:false
-    })
+  
+  componentWillMount(){
+    
+    var path =  window.location.pathname;
+    console.log(path)
+    switch(path){
+      case "/" : this.setState({title:"卖座电影"});
+      case "/movie" :this.setState({title:"卖座电影"});
+      case "/detai/4000": 
+        axios.get(`/v4/api/film/4000?__t=1519722037715`)
+        .then((res)=>{
+          console.log(res);
+        })
+    }
+  }
+  changeTitle(){
+    var id = this
+    console.log(id)
+      axios.get(`/v4/api/film/4004?__t=1519722037715`)
+        .then((res)=>{       
+          var data = res.data.data.film.name
+           this.setState({title:data})
+        })
   }
   render() {
-  var navSide = <aside id="side_bar">
+    const Title = () => (
+      <span>卖座电影</span>
+    )
+    var detailTitle = () => (
+       <span>{this.changeTitle()}{this.state.title}</span>
+      
+      
+    
+    )
+    console.log(this)
+    const sidebar = (<aside id="side_bar">
           <div className="side_container">
-            <div className="side_nav" onClick={this.closeSide}>
-              <ReactCSSTransitionGroup
-                transitionName="side_left"
-                transitionEnterTimeout={500}
-                transitionLeaveTimeout={300}
-              >
+            <div className="side_nav" onClick={this.onOpenChange}>
                 <div className="side_nav_left">
                   <ul>
                     <li><NavLink to="/"><span>首页</span><i className="icon iconfont">&#xe623;</i></NavLink></li>
@@ -54,26 +89,24 @@ class App extends Component {
                     
                   </ul>
                 </div>
-              </ReactCSSTransitionGroup>
-              
             </div>
             
           </div>
-        </aside>;
-    if(!this.state.showSide){
-      navSide = null;
-    }
+        </aside>);
     return (
+
       <Router>
       <div id="index">
         <nav id="nav_bar">
           <h1>
-            <a onClick={this.changeSide}>
+            <a onClick={this.onOpenChange}>
               <div className="iconLogo">
                 <i className="icon iconfont">&#xe62a;</i>
               </div>
               <div className="nav_title">
-                卖座电影
+                <Route exact path="/" component={Title} />
+                <Route path="/movie" component={Title} />
+                <Route path="/detail/:fid" component={detailTitle} />
               </div>
             </a>
           </h1>
@@ -86,24 +119,24 @@ class App extends Component {
           </div>
          
         </nav>
-        <section>
+        
+       <Drawer
+        className="my-drawer"
+        style={{ minHeight: document.documentElement.clientHeight }}
+        enableDragHandle
+        sidebar={sidebar}
+        transitions
+        open={this.state.open}
+        onOpenChange={this.onOpenChange}
+      >
+      <section>
         <Route exact path="/" component={Home} />
-          <Route path="/movie/now-playing" component={Movie} />
+          <Route path="/movie" component={Movie} />
           <Route path="/todolist" component={TodoList} />
           <Route path="/detail/:fid" component={Detail} />
 
         </section>
-
-
-        <ReactCSSTransitionGroup
-          transitionName="side"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={300}
-        >
-          {navSide}
-        </ReactCSSTransitionGroup>
-        
-         
+      </Drawer>
       </div>
       </Router>
     )

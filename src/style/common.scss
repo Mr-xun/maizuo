@@ -90,9 +90,6 @@ html{
     	}
     }
 }
-section{
-	padding-top: 0.50rem;
-}
 #side_bar{
 	.side_container{
 	    position: fixed;
@@ -145,41 +142,18 @@ section{
 	}
 
 }
-.side-enter {
-  opacity: 0.01;
+.my-drawer {
+  position: relative;
+  padding-top: 0.5rem;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
-
-.side-enter.side-enter-active {
-  opacity: 1;
-  transition: opacity 500ms ease-in;
+.my-drawer .am-drawer-sidebar {
+  background-color: #fff;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
-
-.side-leave {
-  opacity: 1;
-}
-
-.side-leave.side-leave-active {
-  opacity: 0.01;
-  transition: opacity 300ms ease-in;
-}
-.side_left-enter {
-  opacity: 1;
-  right: 0;
-}
-
-.side_left-enter.side_left-enter-active {
-  opacity: 1;
-  right: 1.1rem;
-  transition: opacity 500ms ease-in;
-}
-
-.side_left-leave {
-  opacity: 1;
-  right: 1.1rem;
-}
-
-.side_left-leave.side_left-leave-active {
-  opacity: 0.01;
-  right: 0rem;
-  transition: opacity 300ms ease-in;
+.my-drawer .am-drawer-sidebar .am-list {
+  width: 300px;
+  padding: 0;
 }

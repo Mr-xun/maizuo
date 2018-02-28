@@ -2,9 +2,12 @@ import todoReducer from './todoReducer';
 import swiperReducer from './swiperReducer';
 import hotReducer from './hotReducer';
 import willReducer from './willReducer';
+import detailReducer from './detailReducer';
+
 export default {
 	todo_list: todoReducer,
-	swiperFilms:swiperReducer,
 	hotFilms:hotReducer,
-	willFilms:willReducer
+	swiperFilms:swiperReducer,
+	willFilms:willReducer,
+	details:detailReducer
 }

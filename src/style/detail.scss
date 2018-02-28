@@ -1,0 +1,42 @@
+.detail{
+	.film_intro{
+		.film_intro_title{
+		    margin: 16px auto;
+		    border-left: 16px solid RGB(228, 200, 156);
+		    font-size: 16px;
+		    padding-left: 4px;
+		}
+		.intro{
+			height: 18px;
+		    overflow: hidden;
+		    margin-bottom: 10px;
+		    padding-left: 20px;
+		}
+		.film_intro_synopsis{
+		    text-overflow: ellipsis;
+		    margin-bottom: 80px;
+		    padding-left: 20px;
+		    padding-right: 20px;
+		}
+	}
+	.buyTicket{
+	    position: fixed;
+	    left: 0;
+	    bottom: 20px;
+	    width: 100%;
+	    text-align: center;
+    	button{
+    		font-size: 14px;
+		    min-width: 156px;
+		    height: 36px;
+		    line-height: 36px;
+		    border: none;
+		    background-color: #fe8233;
+		    padding: 0;
+		    margin: 0;
+		    border-radius: 18px;
+		    color: #fff;
+		    -webkit-transition: 0.5s ease;
+    	}
+	}
+}

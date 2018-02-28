@@ -1,4 +1,4 @@
-.nowPlay{
+.willPlay{
 	dl{
 		width: 100%;
 	    padding: 0.2rem 0;
@@ -34,18 +34,6 @@
 					    white-space: nowrap;
 
 				    }
-				    p{
-				    	float: right;
-				    	span{
-				    		font-size: 0.16rem;
-						    line-height: 0.32rem;
-						    color: #fc7103;
-				    	}
-				    	i{
-				    		font-size: 10px;
-				    		line-height: 0.32rem;
-				    	}
-				    }
 			    }
 			    .movieIntroduce{
 			    	text-align: left;
@@ -60,20 +48,14 @@
 				    display: inline-block
 			    }
 			    .movieShow{
-		    	    line-height: 0.24rem;
-				    color: #8e8e8e;
+	    	        line-height: 0.24rem;
+				    color: #ffb375;
 				    font-size: 0.12rem;
 				    p{
 				    	float: left;
 				    	line-height: 0.24rem;
 				    }
-				    span{
-				    	float: right;
-				    	line-height: 0.24rem;
-				    }
-				    b{
-				    	color: #8aa2bf;
-				    }
+				   
 			    }
 	    	}
 	    }

@@ -28,7 +28,6 @@ const mapDispatchToProps = (dispatch,props) =>{
 		addHot:function(){
 			axios.get("/v4/api/film/now-playing?__t=1519629717680&page=1&count=5")
 			.then((res)=>{
-				console.log(this.props)
 				dispatch({
 					type:"GET_HOT_DATA",
 					payload:res.data.data.films
@@ -38,7 +37,6 @@ const mapDispatchToProps = (dispatch,props) =>{
 		addWill:function(){
 			axios.get("v4/api/film/coming-soon?__t=1519629717683&page=1&count=3")
 			.then((res)=>{
-				console.log(this.props)
 				dispatch({
 					type:"GET_WILL_DATA",
 					payload:res.data.data.films
@@ -54,7 +52,21 @@ class HomeUI extends Component{
 		this.props.addWill();
 
 	}
+	toDate(premiereAt){
+		var now = new Date(premiereAt);
+		var month = now.getMonth()+1;
+		var data = now.getDate();
+		return month + "月" + data + "日"
+	}
+	goMoreHot(){
+		this.props.history.push("/movie/now-playing");
+	}
+	goMoreWill(){
+		this.props.history.push("/movie/comming-playing");
+	}
+
 	render() {
+		var that = this;
 		return (
 			<div id="home">
 				<Carousel
@@ -72,24 +84,26 @@ class HomeUI extends Component{
  		        <div className="hot_playing">
  		        	{this.props.hotFilms.map(function(item,index){
 		        		return (
-		        			<dl key={item.id}>
+		        			<Link key={item.id} to={"/detail/"+item.id}>
+		        			<dl >
 		        				<dt>
-		        					<a><img style={{ width: '100%', verticalAlign: 'top' }} src={item.cover.origin}/></a>
+		        					<img style={{ width: '100%', verticalAlign: 'top' }} src={item.cover.origin}/>
 								</dt>
 		        				<dd>
 			        				<div className="movie_message">
-										<p><a >{item.name}</a></p>
-										<span><a >{item.cinemaCount}家影院上线 {item.watchCount}人购票</a></span>
+										<p>{item.name}</p>
+										<span>{item.cinemaCount}家影院上线 {item.watchCount}人购票</span>
 									</div>
 									<div className="movie_grade">
 										<em>{item.grade}</em>
 									</div>
 		        				</dd>
 		        			</dl>
+		        			</Link>
 		        		)
 		        	})}	
 		        	<div className="hot_title">
-						<button>更多热映电影</button>
+						<button onClick={()=>that.goMoreHot()}>更多热映电影</button>
 					</div>
 		        </div>
 		        <div className="will_playing">
@@ -98,19 +112,21 @@ class HomeUI extends Component{
  					</div>
  					{this.props.willFilms.map(function(item,index){
 		        		return (
-		        			<dl key={item.id}>
+		        			<Link key={item.id} to={"/detail/"+item.id}>
+		        			<dl >
 		        				<dt>
-		        					<a><img style={{ width: '100%', verticalAlign: 'top' }} src={item.cover.origin}/></a>
+		        					<img style={{ width: '100%', verticalAlign: 'top' }} src={item.cover.origin}/>
 								</dt>
 		        				<dd>
 										<p>{item.name}</p>
-										<span>2月28日上线</span>
+										<span>{that.toDate(item.premiereAt)}上线</span>
 		        				</dd>
 		        			</dl>
+		        			</Link>
 		        		)
 		        	})}	
 	        		<div className="comming_title">
-						<button>更多即将上映热映电影</button>
+						<button onClick={()=>that.goMoreWill()}>更多即将上映热映电影</button>
 					</div>
 		        </div>
  		     </div>
@@ -119,103 +135,3 @@ class HomeUI extends Component{
 }
 const Home = connect(mapStateToProps, mapDispatchToProps)(HomeUI);
 export default Home;
-// export default class Home extends Component {
-// 	constructor(props) {
-// 		super(props);
-// 		this.state={
-// 			// swiperFilms:[],
-// 			hotFilms:[],
-// 			willFilms:[]
-// 		}
-// 	}
-// 	componentDidMount() {
-// 		console.log(this)
-// 		// console.log(this.props)
-// 		// axios.get("/v4/api/billboard/home?__t=1519629717676")
-// 		// .then((res)=>{
-// 		// 	console.log(this.props)
-// 			// this.setState({
-// 			// 	swiperFilms:res.data.data.billboards
-// 			// })
-// 			// this.props.store.dispatch({
-// 			// 	type:"GET_SWIRPER_DATA",
-// 			// 	payload:res.data.data.billboards
-// 			// })
-// 		// })
-// 		axios.get("v4/api/film/now-playing?__t=1519629717680&page=1&count=5")
-// 		.then((res)=>{
-// 			this.setState({
-// 				hotFilms:res.data.data.films
-// 			})
-// 		})
-// 		axios.get("v4/api/film/coming-soon?__t=1519629717683&page=1&count=3")
-// 		.then((res)=>{
-// 			this.setState({
-// 				willFilms:res.data.data.films
-// 			})
-// 		})
-// 	}
-// 	render() {
-// 		// var swiperFilms = this.props.store.getState().swiperFilms;
-// 		return (
-// 			<div id="home">
-// 			   {/*<Carousel
-// 		          autoplay={true}
-// 		          autoplayInterval={3000}
-// 		          infinite
-// 		          selectedIndex={1}
-// 		        >
-// 		        {swiperFilms.map(function(item,index) {
-// 		        	return (
-// 		        		<a key={item.id}><img style={{ width: '100%', verticalAlign: 'top' }} src={item.imageUrl}/></a>
-// 		        	)
-// 		        })}
-// 		        </Carousel>*/}
-// 		        <div className="hot_playing">
-// 		        	{this.state.hotFilms.map(function(item,index){
-// 		        		return (
-// 		        			<dl key={item.id}>
-// 		        				<dt>
-// 		        					<a><img style={{ width: '100%', verticalAlign: 'top' }} src={item.cover.origin}/></a>
-// 								</dt>
-// 		        				<dd>
-// 			        				<div className="movie_message">
-// 										<p><a >{item.name}</a></p>
-// 										<span><a >{item.cinemaCount}家影院上线 {item.watchCount}人购票</a></span>
-// 									</div>
-// 									<div className="movie_grade">
-// 										<em>{item.grade}</em>
-// 									</div>
-// 		        				</dd>
-// 		        			</dl>
-// 		        		)
-// 		        	})}	
-// 		        	<div className="hot_title">
-// 						<button>更多热映电影</button>
-// 					</div>
-// 		        </div>
-// 		        <div className="will_playing">
-// 					<div className="line">
-// 						<span>即将上映</span>
-// 					</div>
-// 					{this.state.willFilms.map(function(item,index){
-// 		        		return (
-// 		        			<dl key={item.id}>
-// 		        				<dt>
-// 		        					<a><img style={{ width: '100%', verticalAlign: 'top' }} src={item.cover.origin}/></a>
-// 								</dt>
-// 		        				<dd>
-// 										<p>{item.name}</p>
-// 										<span>2月28日上线</span>
-// 		        				</dd>
-// 		        			</dl>
-// 		        		)
-// 		        	})}	
-// 	        		<div className="comming_title">
-// 						<button>更多即将上映热映电影</button>
-// 					</div>
-// 		        </div>
-// 			</div>
-// 		)
-// 	}
-// }
