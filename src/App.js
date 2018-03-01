@@ -12,6 +12,8 @@ import Orders from './components/Orders';
 import Detail from './components/Detail';
 import Movie from './components/Movie';
 import TodoList from './components/TodoList';
+import Login from './components/Login';
+
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import { Drawer, List, NavBar, Icon } from 'antd-mobile';
 import axios from 'axios';
@@ -41,24 +43,9 @@ class App extends Component {
     this.setState({ open: !this.state.open });
   }
   
-  componentWillMount(){
-    
-    var path =  window.location.pathname;
-    console.log(path)
-    switch(path){
-      case "/" : this.setState({title:"卖座电影"});
-      case "/movie" :this.setState({title:"卖座电影"});
-      case "/detai/4000": 
-        axios.get(`/v4/api/film/4000?__t=1519722037715`)
-        .then((res)=>{
-          console.log(res);
-        })
-    }
-  }
-  changeTitle(){
-    var id = this
-    console.log(id)
-      axios.get(`/v4/api/film/4004?__t=1519722037715`)
+  changeTitle = (props)=>{
+    var id = props.match.params.fid
+      axios.get(`/v4/api/film/${id}?__t=1519722037715`)
         .then((res)=>{       
           var data = res.data.data.film.name
            this.setState({title:data})
@@ -68,13 +55,12 @@ class App extends Component {
     const Title = () => (
       <span>卖座电影</span>
     )
-    var detailTitle = () => (
-       <span>{this.changeTitle()}{this.state.title}</span>
-      
-      
-    
+    const myTitle = () => (
+      <span>我的</span>
     )
-    console.log(this)
+    var detailTitle = (props) => (
+       <span>{this.changeTitle(props)}{this.state.title}</span>
+    )
     const sidebar = (<aside id="side_bar">
           <div className="side_container">
             <div className="side_nav" onClick={this.onOpenChange}>
@@ -84,7 +70,7 @@ class App extends Component {
                     <li><NavLink to="/movie/now-playing"><span>影片</span><i className="icon iconfont">&#xe623;</i></NavLink></li>
                     <li><NavLink to="/orders"><span>影院</span><i className="icon iconfont">&#xe623;</i></NavLink></li>
                     <li><NavLink to="/orders"><span>商城</span><i className="icon iconfont">&#xe623;</i></NavLink></li>
-                    <li><NavLink to="/orders"><span>我的</span><i className="icon iconfont">&#xe623;</i></NavLink></li>
+                    <li><NavLink to="/login"><span>我的</span><i className="icon iconfont">&#xe623;</i></NavLink></li>
                     <li><NavLink to="/orders"><span>卖座卡</span><i className="icon iconfont">&#xe623;</i></NavLink></li>
                     
                   </ul>
@@ -96,7 +82,7 @@ class App extends Component {
     return (
 
       <Router>
-      <div id="index">
+      <div id="index"  >
         <nav id="nav_bar">
           <h1>
             <a onClick={this.onOpenChange}>
@@ -107,6 +93,7 @@ class App extends Component {
                 <Route exact path="/" component={Title} />
                 <Route path="/movie" component={Title} />
                 <Route path="/detail/:fid" component={detailTitle} />
+                <Route path="/login" component={myTitle} />
               </div>
             </a>
           </h1>
@@ -128,16 +115,21 @@ class App extends Component {
         transitions
         open={this.state.open}
         onOpenChange={this.onOpenChange}
+        ref="moreFilm"
+
       >
       <section>
         <Route exact path="/" component={Home} />
           <Route path="/movie" component={Movie} />
           <Route path="/todolist" component={TodoList} />
           <Route path="/detail/:fid" component={Detail} />
+          <Route path="/login" component={Login} />
+          <Route path="/orders" component={Orders} />
 
         </section>
       </Drawer>
       </div>
+
       </Router>
     )
   }

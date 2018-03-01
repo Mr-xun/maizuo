@@ -10,8 +10,8 @@ const PlaceHolder = ({ className = '', ...restProps }) => (
 const mapStateToProps = (state,props) =>{
 	return {
 		swiperFilms:state.swiperFilms,
-		hotFilms:state.hotFilms,
-		willFilms:state.willFilms
+		hotFilms:state.homehotFilms,
+		willFilms:state.homewillFilms
 	}
 }
 const mapDispatchToProps = (dispatch,props) =>{
@@ -29,7 +29,7 @@ const mapDispatchToProps = (dispatch,props) =>{
 			axios.get("/v4/api/film/now-playing?__t=1519629717680&page=1&count=5")
 			.then((res)=>{
 				dispatch({
-					type:"GET_HOT_DATA",
+					type:"GET_HOMEHOT_DATA",
 					payload:res.data.data.films
 				})
 			})
@@ -38,13 +38,17 @@ const mapDispatchToProps = (dispatch,props) =>{
 			axios.get("v4/api/film/coming-soon?__t=1519629717683&page=1&count=3")
 			.then((res)=>{
 				dispatch({
-					type:"GET_WILL_DATA",
+					type:"GET_HOMEWILL_DATA",
 					payload:res.data.data.films
 				})
 			})
 		}
 	}
 }
+// var path = {
+//   pathname:'/orders',
+//   state:{name:123},
+// }
 class HomeUI extends Component{
 	componentDidMount(){
 		this.props.addSwiper();
@@ -69,6 +73,7 @@ class HomeUI extends Component{
 		var that = this;
 		return (
 			<div id="home">
+{/*			<Link to={path}>用户</Link>*/}
 				<Carousel
  		          autoplay={true}
  		          autoplayInterval={3000}

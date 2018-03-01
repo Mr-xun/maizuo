@@ -7,11 +7,10 @@ export default class Movie extends Component {
 	constructor(props) {
 		super(props);
 	}
-
 	render() {
 		return(
 
-				<div id="movie">
+				<div id="movie" >
 					<div className="movie_nav">
 						<div className="movie_nav_now">
 							<NavLink activeClassName="isChoosed" to="/movie/now-playing">正在热映</NavLink>
