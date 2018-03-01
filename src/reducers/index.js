@@ -5,6 +5,7 @@ import willReducer from './willReducer';
 import detailReducer from './detailReducer';
 import homeHotReducer from './homeHotReducer';
 import homeWillReducer from './homeWillReducer';
+import cityReducer from './cityReducer';
 export default {
 	todo_list: todoReducer,
 	hotFilms:hotReducer,
@@ -12,5 +13,6 @@ export default {
 	willFilms:willReducer,
 	details:detailReducer,
 	homehotFilms:homeHotReducer,
-	homewillFilms:homeWillReducer
+	homewillFilms:homeWillReducer,
+	citys:cityReducer
 }

@@ -13,7 +13,8 @@ import Detail from './components/Detail';
 import Movie from './components/Movie';
 import TodoList from './components/TodoList';
 import Login from './components/Login';
-
+import City from './components/City';
+import Cinema from './components/Cinema';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import { Drawer, List, NavBar, Icon } from 'antd-mobile';
 import axios from 'axios';
@@ -42,7 +43,9 @@ class App extends Component {
    onOpenChange = (...args) => {
     this.setState({ open: !this.state.open });
   }
-  
+  closeSide = (...args) => {
+    this.setState({ open: true });
+  }
   changeTitle = (props)=>{
     var id = props.match.params.fid
       axios.get(`/v4/api/film/${id}?__t=1519722037715`)
@@ -58,6 +61,12 @@ class App extends Component {
     const myTitle = () => (
       <span>我的</span>
     )
+    const cityTitle = () => (
+      <span>选择城市</span>
+    )
+    const cinemaTitle = () => (
+      <span>全部影院</span>
+    )
     var detailTitle = (props) => (
        <span>{this.changeTitle(props)}{this.state.title}</span>
     )
@@ -68,7 +77,7 @@ class App extends Component {
                   <ul>
                     <li><NavLink to="/"><span>首页</span><i className="icon iconfont">&#xe623;</i></NavLink></li>
                     <li><NavLink to="/movie/now-playing"><span>影片</span><i className="icon iconfont">&#xe623;</i></NavLink></li>
-                    <li><NavLink to="/orders"><span>影院</span><i className="icon iconfont">&#xe623;</i></NavLink></li>
+                    <li><NavLink to="/cinema"><span>影院</span><i className="icon iconfont">&#xe623;</i></NavLink></li>
                     <li><NavLink to="/orders"><span>商城</span><i className="icon iconfont">&#xe623;</i></NavLink></li>
                     <li><NavLink to="/login"><span>我的</span><i className="icon iconfont">&#xe623;</i></NavLink></li>
                     <li><NavLink to="/orders"><span>卖座卡</span><i className="icon iconfont">&#xe623;</i></NavLink></li>
@@ -94,15 +103,17 @@ class App extends Component {
                 <Route path="/movie" component={Title} />
                 <Route path="/detail/:fid" component={detailTitle} />
                 <Route path="/login" component={myTitle} />
+                <Route path="/city" component={cityTitle} />
+                <Route path="/cinema" component={cinemaTitle} />
               </div>
             </a>
           </h1>
-          <div className="nav_right">
-            <NavLink className="nav_position" to="/orders">
+          <div className="nav_right" onClick={this.closeSide}>
+            <NavLink className="nav_position" to="/city">
               <span>北京</span>
               <i className="icon iconfont">&#xe727;</i>
             </NavLink>
-            <NavLink className="nav_user" to="/orders"><i className="icon iconfont">&#xe8a0;</i></NavLink>
+            <NavLink className="nav_user" to="/login"><i className="icon iconfont">&#xe8a0;</i></NavLink>
           </div>
          
         </nav>
@@ -125,7 +136,8 @@ class App extends Component {
           <Route path="/detail/:fid" component={Detail} />
           <Route path="/login" component={Login} />
           <Route path="/orders" component={Orders} />
-
+          <Route path="/city" component={City} />
+          <Route path="/cinema" component={Cinema} />
         </section>
       </Drawer>
       </div>

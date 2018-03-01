@@ -1,0 +1,32 @@
+.city{
+	.title{
+	    padding-left: 15px;
+		margin-top: -1px;
+		span{
+			font-size: 14px;
+			line-height: 40px;
+			background-color: #ebebeb;
+		}
+	}
+	.city_view{
+		background: #fff;
+		ul{
+		    padding-left: 0;
+    		list-style: none;
+    		min-width: 320px;
+    		.city_name{
+			    width: 25%;
+			    font-size: 16px;
+			    line-height: 46px;
+			    text-align: center;
+			    display: inline-block;
+			    cursor: pointer;
+			    color: #838383;
+			    border-bottom: #ebebeb 1px solid;
+    		}
+    		.active_city{
+			    color: #e2941a;
+    		}
+		}
+	}
+}
