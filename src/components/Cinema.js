@@ -1,5 +1,5 @@
 import React,{Component} from "react";
-import {BrowserRouter as Router,Route,NavLink} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import axios from 'axios';
 import "../style/cinema.scss"
 import $ from 'jquery';
@@ -13,15 +13,11 @@ export default class Cinema extends Component{
 		}
 	    this.changeFlag = this.changeFlag.bind(this);
 	}
-
 	componentDidMount(){
-		var that = this;
 		axios.get("/v4/api/cinema?__t=1519892189161")
 		.then((res)=>{
 			this.setState({cinemaAll:res.data.data.cinemas})
 		})
-		
-		var open = false
 		setTimeout(function(){
 			var $title = $(".district")
 			$title.eq(0).children(".content").addClass("active")
@@ -44,14 +40,10 @@ export default class Cinema extends Component{
 		var that = this;	
 		this.state.cinemaAll.map(function(item,index){
 			var addreename =  item.district.name;
-			if(addreeArr.indexOf(addreename) ==-1){
+			if(addreeArr.indexOf(addreename) ===-1){
 				addreeArr.push(addreename)
 			}
 		})
-		var classname = "active"
-		if(!this.state.showFlag) {
-	      classname = "";
-	    }
 		return(
 			<div className="cinema" >
 				{addreeArr.map(function(item,index){
@@ -71,7 +63,7 @@ export default class Cinema extends Component{
 									}
 									return (
 										<div key={item.id} className="content">
-											<NavLink to="/orders">
+											<NavLink to={"/cinema/detail/"+item.id}>
 												<div className="cinema_wrap">
 													<dl>
 														<dt>

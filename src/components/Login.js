@@ -1,14 +1,14 @@
 import React,{Component} from 'react';
-import {BrowserRouter as Router , Route ,NavLink} from 'react-router-dom';
+// import {NavLink} from 'react-router-dom';
 import '../style/login.scss';
-import $ from 'jquery';
+// import $ from 'jquery';
 export default class Login extends Component {
-	constructor(props) {
-		super(props);
-	}
-	component(){
+	// constructor(props) {
+	// 	super(props);
+	// }
+	// component(){
 		
-	}
+	// }
 	render() {
 		return(
 				<div id="login" >

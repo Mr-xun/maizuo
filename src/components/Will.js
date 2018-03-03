@@ -1,8 +1,8 @@
 import React,{Component} from 'react';
-import {BrowserRouter as Router , Route ,NavLink} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import axios from 'axios';
 import '../style/will.scss';
-import {connect} from 'react-redux';
+// import {connect} from 'react-redux';
 var page = 1;
 // const mapStateToProps = (state,props) =>{
 // 	return {
@@ -122,7 +122,7 @@ export default class WillPlay extends Component{
 		})
 	}
 	moreFilms(e){
-	 	var clientHeight = e.target.clientHeight;
+	 	// var clientHeight = e.target.clientHeight;
 	 	var scrollTop = e.target.scrollTop;
 	 	var scrollHeight = e.target.scrollHeight;
 	    if(scrollTop >= Math.floor(scrollHeight / 3) ){	    	
@@ -148,8 +148,9 @@ export default class WillPlay extends Component{
 	    			case 8 : 
 	    			page = 9;
 	    			this.addNowPlay(page) ;break;
+		  			default:return
+
 	    		}
-	    		return 
 	    }
 	}
 	componentDidMount() {
@@ -165,8 +166,6 @@ export default class WillPlay extends Component{
 	}
 	toDay(premiereAt){
 		var now = new Date(premiereAt);
-		var month = now.getMonth()+1;
-		var data = now.getDate();
 		var day = now.getDay();
 		switch (day) {
 		  case 0:day="天";break
@@ -176,6 +175,7 @@ export default class WillPlay extends Component{
 		  case 4:day="四";break
 		  case 5:day="五";break
 		  case 6:day="六";break
+		  default:return
 		 }
 		return "星期" + day;
 	}
@@ -190,7 +190,7 @@ export default class WillPlay extends Component{
 							<dl key={item.id}>
 								<NavLink to={"/detail/"+item.id}>
 									<dt>
-										<img src={item.poster.thumbnail}/>
+										<img alt="加载中" src={item.poster.thumbnail}/>
 									</dt>
 									<dd>
 										<div className="movieName">

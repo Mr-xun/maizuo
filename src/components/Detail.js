@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Ruter , NavLink,Route} from 'react-router-dom';
+// import { NavLink} from 'react-router-dom';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import '../style/detail.scss';
@@ -37,10 +37,9 @@ class DetailUI extends Component{
 	addActors(actors){
 		var arr = actors;
 		var actor = ''
-		
-			arr.map(function(item,index){
-				actor += item.name + " | "
-			})
+		arr.map(function(item,index){
+			actor += item.name + " | "
+		})
 		return actor
 	}
 	render(){
@@ -48,7 +47,6 @@ class DetailUI extends Component{
 		var filmDetails =this.props.filmDetail
 		var that = this;
 		var now = new Date();
-		var time = now.getTime();	
 		if(filmDetails.length>0){
 			if(filmDetails[0].premiereAt > now){
 				buy = null;
@@ -59,7 +57,7 @@ class DetailUI extends Component{
 				{this.props.filmDetail.map(function(item,index){
 					return(
 						<div key={item.id}>
-							<img src={item.cover.origin} style={{width: '100%', verticalAlign: 'top' }}/>
+							<img alt="加载中" src={item.cover.origin} style={{width: '100%', verticalAlign: 'top' }}/>
 							<div className="film_intro">
 								<div className="film_intro_title">影片简介</div>
 								<div className="intro film_intro_directo"><span>导&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;演:&nbsp;&nbsp;</span><em>{item.director}</em></div>

@@ -1,9 +1,9 @@
 import React,{Component} from "react";
-import {BrowserRouter as Router,Route,NavLink,ReactDom} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import axios from 'axios';
 import '../style/now.scss';
-import {connect} from 'react-redux';
-import LazyLoad from 'react-lazyload';
+// import {connect} from 'react-redux';
+// import LazyLoad from 'react-lazyload';
 let page = 1;
 // const mapStateToProps = (state,props) => {
 // 	return {
@@ -96,7 +96,6 @@ let page = 1;
 // }
 // const NowPlay = connect(mapStateToProps,mapDispatchToProps)(NowPlayUI)
 // export default NowPlay
-var height = 0;
 export default class NowPlay extends Component{
 	constructor(props) {
 		super(props);
@@ -113,7 +112,7 @@ export default class NowPlay extends Component{
 		})
 	}
 	moreFilms(e){
-	 	var clientHeight = e.target.clientHeight;
+	 	// var clientHeight = e.target.clientHeight;
 	 	var scrollTop = e.target.scrollTop;
 	 	var scrollHeight = e.target.scrollHeight;
 	 	var that = this;
@@ -141,6 +140,7 @@ export default class NowPlay extends Component{
 	    			case 8 : 
 	    			page = 9;
 	    			that.addNowPlay(page) ;break;
+	    			default:return
 	    		}
 	    		return 
 		    }
@@ -161,7 +161,7 @@ export default class NowPlay extends Component{
 							<dl key={item.id}>
 								<NavLink to={"/detail/"+item.id}>
 									<dt>
-										<img src={item.poster.thumbnail}/>
+										<img alt="加载中" src={item.poster.thumbnail}/>
 									</dt>
 									<dd>
 										<div className="movieName">

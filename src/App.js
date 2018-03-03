@@ -2,8 +2,7 @@ import React, { Component } from 'react'; // 固定写法，引入必要的组�
 import {
   BrowserRouter as Router,
   Route,
-  NavLink,
-  Link
+  NavLink
 } from 'react-router-dom';
 import './style/common.scss';
 import './iconfont/iconfont.css';
@@ -15,8 +14,9 @@ import TodoList from './components/TodoList';
 import Login from './components/Login';
 import City from './components/City';
 import Cinema from './components/Cinema';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-import { Drawer, List, NavBar, Icon } from 'antd-mobile';
+import CinemaDetail from './components/CinemaDetail';
+// import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import { Drawer} from 'antd-mobile';
 import axios from 'axios';
 class App extends Component {
 
@@ -137,7 +137,8 @@ class App extends Component {
           <Route path="/login" component={Login} />
           <Route path="/orders" component={Orders} />
           <Route path="/city" component={City} />
-          <Route path="/cinema" component={Cinema} />
+          <Route exact path="/cinema" component={Cinema} />
+          <Route path="/cinema/detail/:fid" component={CinemaDetail} />
         </section>
       </Drawer>
       </div>

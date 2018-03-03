@@ -1,0 +1,131 @@
+.cinemaDetail{
+	.cinemaDetail_bg{
+		img{
+			width: 100%;
+		}
+	}
+	.cinemaDetail_content{
+		.cinemaDetail_box{
+			padding: 25px 17px 0;
+		    background-color: #f9f9f9;
+		    .box_wrap{
+	    	    display: inline-block;
+			    width: 100%;
+			    min-width: 286px;
+			    .imgIcon{
+		    	    margin: 15px 17px 0 0;
+		    	    float: left;
+		    	    i{
+	    	    	    font-size: 28px;
+    	    	        color: #ff8160;
+		    	    }
+		    	    .icon_ticket{
+		    	    	color: #40b5b5;
+		    	    }
+		    	    .icon_position{
+		    	    	color: #7bafe1
+		    	    }
+		    	    .icon_phone{
+		    	    	color: #df8f9f;
+		    	    }
+			    }
+			    .box{
+			    	border-bottom: 1px #d6d6d6 dotted;
+				    position: relative;
+				    padding-bottom: 25px;
+				    margin-left: 45px;
+				    h3{
+			    	    font-size: 15px;
+				    	color: #000;
+				    	margin-top: 20px;
+   						 margin-bottom: 10px;
+				    }
+				    span{
+			    	    color: #737373;
+				    }
+				    h4{
+			    	    margin-top: 10px;
+					    margin-bottom: 10px;
+					    font-size: 14px;
+					    color: #000;
+				    }
+			    }
+			    .btn_default{
+		    	    width: 94px;
+				    border-radius: 38px;
+				    height: 34px;
+				    border: none;
+				    font-size: 13px;
+				    position: absolute;
+				    right: 0px;
+				    top: -10px;
+			    }
+			    .seat_btn{
+			    	background-color: #fe8233;
+   					color: #fff;
+			    }
+			    .ticket_btn{
+					color: #ff8032;
+				    background-color: #f9f9f9;
+				    border: 1px solid #ff8032;
+			    }
+			}
+	    }
+	    .choose_box{
+    	    min-width: 320px;
+		    padding: 15px 0 30px;
+		    background-color: #f9f9f9;
+		    margin-top: 15px;
+		    cursor: pointer;
+		    ul{
+    	        padding-left: 0;
+			    margin-left: -5px;
+			    list-style: none;
+		        position: relative;
+	            margin-bottom: 10px;
+	            li{
+	            	display: inline-block;
+            	    border-bottom: 1px #d6d6d6 solid;
+				    padding: 0;
+				    width: 16.66666667%;
+				    .li_wrap{
+			    	    padding: 0 12px 5px;
+    					margin-bottom: 2px;
+    					.li_box{
+						    position: relative;
+						    overflow: hidden;
+						    width: 38px;
+						    margin: 0 auto;
+						    text-align: center;
+						    i{
+    							font-size: 30px;
+							    color: #cdcdcd;
+						    }
+						    .icon_active{
+						    	color: #fe8233;
+						    }
+						    span{
+					    	    color: #737373;
+							    display: block;
+							    width: 38px;
+							    text-align: center;
+						    }
+    					}
+				    }
+				    .active_box{
+				    	border-bottom: 3px #ff8032 solid;
+				    }
+	            }
+	            li:nth-of-type(1){
+	            	margin-left: 8.33333333%;
+	            }
+		    }
+		    .intro{
+	    	    padding: 0 30px;
+	    	    p{
+	    	    	margin: 0 0 10px;
+	    	    }
+		    }
+	    }
+	}
+}

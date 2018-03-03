@@ -1,12 +1,12 @@
 import React,{Component} from 'react';
-import {BrowserRouter as Router , Route ,NavLink} from 'react-router-dom';
+import {Route ,NavLink} from 'react-router-dom';
 import Now from './Now';
 import Will from './Will';
 import '../style/movie.scss';
 export default class Movie extends Component {
-	constructor(props) {
-		super(props);
-	}
+	// constructor(props) {
+	// 	super(props);
+	// }
 	render() {
 		return(
 

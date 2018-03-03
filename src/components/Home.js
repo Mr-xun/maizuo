@@ -1,12 +1,9 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router,Route,NavLink,Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import axios from 'axios';
-import { Carousel, WhiteSpace, WingBlank } from 'antd-mobile';
+import { Carousel} from 'antd-mobile';
 import '../style/home.scss';
 import {connect} from 'react-redux'
-const PlaceHolder = ({ className = '', ...restProps }) => (
-  <div className={`${className} placeholder`} {...restProps}>123</div>
-);
 const mapStateToProps = (state,props) =>{
 	return {
 		swiperFilms:state.swiperFilms,
@@ -82,7 +79,7 @@ class HomeUI extends Component{
  		        >
  		        {this.props.swiperFilms.map(function(item,index) {
  		        	return (
- 		        		<a key={item.id}><img style={{ width: '100%', verticalAlign: 'top' }} src={item.imageUrl}/></a>
+ 		        		<a key={item.id}><img alt="加载中" style={{ width: '100%', verticalAlign: 'top' }} src={item.imageUrl}/></a>
  		        	)
  		        })}
  		        </Carousel>
@@ -92,7 +89,7 @@ class HomeUI extends Component{
 		        			<Link key={item.id} to={"/detail/"+item.id}>
 		        			<dl >
 		        				<dt>
-		        					<img style={{ width: '100%', verticalAlign: 'top' }} src={item.cover.origin}/>
+		        					<img alt="加载中" style={{ width: '100%', verticalAlign: 'top' }} src={item.cover.origin}/>
 								</dt>
 		        				<dd>
 			        				<div className="movie_message">
@@ -120,7 +117,7 @@ class HomeUI extends Component{
 		        			<Link key={item.id} to={"/detail/"+item.id}>
 		        			<dl >
 		        				<dt>
-		        					<img style={{ width: '100%', verticalAlign: 'top' }} src={item.cover.origin}/>
+		        					<img alt="加载中" style={{ width: '100%', verticalAlign: 'top' }} src={item.cover.origin}/>
 								</dt>
 		        				<dd>
 										<p>{item.name}</p>
