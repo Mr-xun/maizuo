@@ -1,4 +1,4 @@
-import React, { Component } from 'react'; // 固定写法，引入必要的组件
+import React, {PureComponent } from 'react'; // 固定写法，引入必要的组件
 import {
   BrowserRouter as Router,
   Route,
@@ -15,10 +15,11 @@ import Login from './components/Login';
 import City from './components/City';
 import Cinema from './components/Cinema';
 import CinemaDetail from './components/CinemaDetail';
+import SelectSession from './components/SelectSession';
 // import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import { Drawer} from 'antd-mobile';
 import axios from 'axios';
-class App extends Component {
+class App extends PureComponent {
 
   constructor(props) {
     super(props);
@@ -26,31 +27,26 @@ class App extends Component {
       open: true,
       title:[]
     }
-    // this.changeSide = this.changeSide.bind(this);
-    // this.closeSide = this.closeSide.bind(this);
   }
-  // changeSide () {
-  //   console.log(this.state.showSide)
-  //   this.setState({
-  //     showSide:!this.state.showSide
-  //   })
-  // }
-  // closeSide() {
-  //   this.setState({
-  //     showSide:false
-  //   })
-  // }
    onOpenChange = (...args) => {
     this.setState({ open: !this.state.open });
   }
   closeSide = (...args) => {
     this.setState({ open: true });
   }
-  changeTitle = (props)=>{
+  changeCinemaTitle = (props)=>{
     var id = props.match.params.fid
       axios.get(`/v4/api/film/${id}?__t=1519722037715`)
         .then((res)=>{       
           var data = res.data.data.film.name
+           this.setState({title:data})
+        })
+  }
+  changeDetailTitle = (props)=>{
+    var id = props.match.params.fid
+      axios.get(`/v4/api/cinema/${id}?__t=1519722037715`)
+        .then((res)=>{       
+          var data = res.data.data.cinema.name
            this.setState({title:data})
         })
   }
@@ -67,8 +63,11 @@ class App extends Component {
     const cinemaTitle = () => (
       <span>全部影院</span>
     )
-    var detailTitle = (props) => (
-       <span>{this.changeTitle(props)}{this.state.title}</span>
+    const detailTitle = (props) => (
+       <span>{this.changeCinemaTitle(props)}{this.state.title}</span>
+    )
+    const cinemaDetailTitle = (props)=> (
+      <span>{this.changeDetailTitle(props)}{this.state.title}</span>
     )
     const sidebar = (<aside id="side_bar">
           <div className="side_container">
@@ -104,7 +103,8 @@ class App extends Component {
                 <Route path="/detail/:fid" component={detailTitle} />
                 <Route path="/login" component={myTitle} />
                 <Route path="/city" component={cityTitle} />
-                <Route path="/cinema" component={cinemaTitle} />
+                <Route exact path="/cinema" component={cinemaTitle} />
+                <Route path="/cinema/detail/:fid" component={cinemaDetailTitle} />
               </div>
             </a>
           </h1>
@@ -138,7 +138,8 @@ class App extends Component {
           <Route path="/orders" component={Orders} />
           <Route path="/city" component={City} />
           <Route exact path="/cinema" component={Cinema} />
-          <Route path="/cinema/detail/:fid" component={CinemaDetail} />
+          <Route exact path="/cinema/detail/:fid" component={CinemaDetail} />
+          <Route path="/cinema/detail/:fid/select" component={SelectSession} />
         </section>
       </Drawer>
       </div>

@@ -10,90 +10,52 @@ export default class CinemaDetail extends Component{
 			currentIndex:0,
 			intro:""
 		}
-		this.chooseTakeTicket = this.chooseTakeTicket.bind(this)
-		this.choose3D = this.choose3D.bind(this)
-		this.choosePark = this.choosePark.bind(this)
-		this.chooseDiscounts = this.chooseDiscounts.bind(this)
-		this.choosePublic = this.choosePublic.bind(this)
+		this.chooseIntro = this.chooseIntro.bind(this)
+		this.goTOSelect = this.goTOSelect.bind(this);
 	}
 	componentDidMount(){
 		var  id = this.props.match.params.fid;
+		var that = this;
 		axios.get(`/v4/api/cinema/${id}?__t=1519956643319`)
 		.then((res)=>{
 			var cinema = [];
 			cinema.push(res.data.data.cinema)
-			this.setState({cinemaDetail:cinema})
+			this.setState({cinemaDetail:cinema},function(){
+				var introArr = this.state.cinemaDetail[0].services
+				this.setState({intro:"暂无信息"})
+				this.setState({currentIndex:0})
+				introArr.map(function(item,index){
+					if(item.name === "取票"){
+						that.setState({intro:item.description})
+					}
+				})
+			})
 		})
 	}
-	chooseTakeTicket(){
+	chooseIntro(e){
 		var that = this;
+		e.stopPropagation();
+		var intro = e.currentTarget.getAttribute("data-intro");
+		var index = e.currentTarget.getAttribute("data-index");
+		console.log(intro)	
 		var introArr = this.state.cinemaDetail[0].services
+		this.setState({intro:"暂无信息"})
+		this.setState({currentIndex:index})
 		introArr.map(function(item,index){
-			console.log(item.name,item.description)
-			if(item.name === "取票"){
+			if(item.name === intro){
 				that.setState({intro:item.description})
-			}else{
-				that.setState({intro:"暂无信息"})
-
 			}
 		})
-		this.setState({currentIndex:0})
 	}
-	choose3D(){
-		var that = this;
-		console.log(this)
-		var introArr = this.state.cinemaDetail[0].services
-		introArr.map(function(item,index){
-			if(item.name === "3D"){
-				that.setState({intro:item.description})
-			}else{
-				that.setState({intro:"暂无信息"})
-
-			}
-		})
-		this.setState({currentIndex:0})
-	}
-	choosePark(){
-		var that = this;
-		var introArr = this.state.cinemaDetail[0].services
-		introArr.map(function(item,index){
-			if(item.name === "停车"){
-				that.setState({intro:item.description})
-			}else{
-				that.setState({intro:"暂无信息"})
-
-			}
-		})
-		this.setState({currentIndex:0})
-	}
-	chooseDiscounts(){
-		var that = this;
-		var introArr = this.state.cinemaDetail[0].services
-		introArr.map(function(item,index){
-			if(item.name === "优惠"){
-				that.setState({intro:item.description})
-			}else{
-				that.setState({intro:"暂无信息"})
-
-			}
-		})
-		this.setState({currentIndex:0})
-	}
-	choosePublic(){
-		var that = this;
-		var introArr = this.state.cinemaDetail[0].services
-		introArr.map(function(item,index){
-			if(item.name === "公交"){
-				that.setState({intro:item.description})
-			}else{
-				that.setState({intro:"暂无信息"})
-
-			}
-		})
-		this.setState({currentIndex:0})
+	goTOSelect(id){
+		this.props.history.push(`/cinema/detail/${id}/select`);
 	}
 	render(){
 		var that = this;
+		var currentIndex = this.state.currentIndex;
+		if(this.state.cinemaDetail[0]){
+			var id = this.state.cinemaDetail[0].id
+		}
 		return (
 			<div className="cinemaDetail">
 				<div className="cinemaDetail_bg">
@@ -108,7 +70,7 @@ export default class CinemaDetail extends Component{
 									<div className="box">
 										<h3>订座票</h3>
 										<span>选好场次及座位，到影院自助机取票</span>
-										<button className="btn_default seat_btn">立即订座</button>
+										<button className="btn_default seat_btn" onClick={()=>that.goTOSelect(id)}>立即订座</button>
 									</div>
 								</div>
 							</div>
@@ -140,42 +102,42 @@ export default class CinemaDetail extends Component{
 							</div>
 							<div className="choose_box">
 								<ul>
-									<li className="choose_one " onClick={that.chooseTakeTicket}>
-										<div className="li_wrap active_box">
+									<li className="choose_one " onClick={that.chooseIntro} data-intro="取票" data-index="0">
+										<div className={currentIndex == 0? "li_wrap active_box" : "li_wrap"}>
 											<div className="li_box">
-												<i className="icon iconfont icon_active">&#xe786;</i>
+												<i className={currentIndex == 0?"icon iconfont icon_active" :"icon iconfont"}>&#xe786;</i>
 												<span>取票</span>
 											</div>
 										</div>
 									</li>
-									<li className="choose_one" onClick={that.choose3D}>
-										<div className="li_wrap">
+									<li className="choose_one" onClick={that.chooseIntro} data-intro="3D" data-index="1">
+										<div className={currentIndex == 1? "li_wrap active_box" : "li_wrap"}>
 											<div className="li_box">
-												<i className="icon iconfont">&#xe606;</i>
+												<i className={currentIndex == 1?"icon iconfont icon_active" :"icon iconfont"}>&#xe606;</i>
 												<span>3D</span>
 											</div>
 										</div>
 									</li>
-									<li className="choose_one" onClick={that.choosePark}>
-										<div className="li_wrap">
+									<li className="choose_one" onClick={that.chooseIntro} data-intro="停车" data-index="2">
+										<div className={currentIndex == 2? "li_wrap active_box" : "li_wrap"}>
 											<div className="li_box">
-												<i className="icon iconfont">&#xe66b;</i>
+												<i className={currentIndex == 2?"icon iconfont icon_active" :"icon iconfont"}>&#xe66b;</i>
 												<span>停车</span>
 											</div>
 										</div>
 									</li>
-									<li className="choose_one" onClick={that.chooseDiscounts}>
-										<div className="li_wrap">
+									<li className="choose_one" onClick={that.chooseIntro} data-intro="优惠" data-index="3">
+										<div className={currentIndex == 3? "li_wrap active_box" : "li_wrap"}>
 											<div className="li_box">
-												<i className="icon iconfont">&#xe624;</i>
+												<i className={currentIndex == 3?"icon iconfont icon_active" :"icon iconfont"}>&#xe624;</i>
 												<span>优惠</span>
 											</div>
 										</div>
 									</li>
-									<li className="choose_one" onClick={that.choosePublic}>
-										<div className="li_wrap">
+									<li className="choose_one" onClick={that.chooseIntro} data-intro="交通" data-index="4">
+										<div className={currentIndex == 4? "li_wrap active_box" : "li_wrap"}>
 											<div className="li_box">
-												<i className="icon iconfont">&#xe6c6;</i>
+												<i className={currentIndex == 4?"icon iconfont icon_active" :"icon iconfont"}>&#xe6c6;</i>
 												<span>交通</span>
 											</div>
 										</div>

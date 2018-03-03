@@ -9,19 +9,25 @@ export default class Cinema extends Component{
 		super(props);
 		this.state={
 			cinemaAll:[],
-			showFlag : false
+			addreeArr:[]
 		}
-	    this.changeFlag = this.changeFlag.bind(this);
 	}
 	componentDidMount(){
 		axios.get("/v4/api/cinema?__t=1519892189161")
 		.then((res)=>{
-			this.setState({cinemaAll:res.data.data.cinemas})
+			this.setState({cinemaAll:res.data.data.cinemas},function(){
+				this.state.cinemaAll.map(function(item,index){
+					var addreename =  item.district.name;
+					if(addreeArr.indexOf(addreename) ===-1){
+						addreeArr.push(addreename)
+					}
+				})
+				this.setState({addreeArr:addreeArr})
+			})
 		})
 		setTimeout(function(){
 			var $title = $(".district")
 			$title.eq(0).children(".content").addClass("active")
-			console.log($title)
 			$title.click(function(){
 				if($(this).children(".content").hasClass("active")){
 					$(this).children(".content").removeClass("active");
@@ -31,26 +37,15 @@ export default class Cinema extends Component{
 			})
 		},1000)
 	}	
-	changeFlag() {
-	    this.setState({
-	      showFlag: !this.state.showFlag
-	    })
-	  }
 	render(){
 		var that = this;	
-		this.state.cinemaAll.map(function(item,index){
-			var addreename =  item.district.name;
-			if(addreeArr.indexOf(addreename) ===-1){
-				addreeArr.push(addreename)
-			}
-		})
 		return(
 			<div className="cinema" >
 				{addreeArr.map(function(item,index){
 					var name  =item;
 					// console.log(classname)
 					return(
-						<div key={index} className="district" onClick={that.changeFlag}>
+						<div key={index} className="district" >
 							<div className="title">
 								<span>{item}</span>
 							</div>

@@ -1,0 +1,29 @@
+.selectSession{
+	.banner{
+		background-color: #38403e;
+		padding: 12px 0 0 0;
+		.swiper-container{
+			.swiper-wrapper{
+				.swiper-slide{
+					width: 74px;
+					.imgWrap{
+					    padding: 0 10px;
+					    .img{
+					    	img{
+							    width: 100%;
+						        border: #eee 1px solid;
+							}
+					    }
+						
+					}
+					.film_name{
+					    display: block;
+					    text-align: center;
+					    margin: 10px -20px;
+					    color: #fff;
+					}
+				}
+			}
+		}
+	}
+}

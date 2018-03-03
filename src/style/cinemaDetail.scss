@@ -76,7 +76,6 @@
 		    padding: 15px 0 30px;
 		    background-color: #f9f9f9;
 		    margin-top: 15px;
-		    cursor: pointer;
 		    ul{
     	        padding-left: 0;
 			    margin-left: -5px;
@@ -88,9 +87,12 @@
             	    border-bottom: 1px #d6d6d6 solid;
 				    padding: 0;
 				    width: 16.66666667%;
+				    z-index: 2;
 				    .li_wrap{
 			    	    padding: 0 12px 5px;
     					margin-bottom: 2px;
+    					z-index: 0;
+
     					.li_box{
 						    position: relative;
 						    overflow: hidden;
