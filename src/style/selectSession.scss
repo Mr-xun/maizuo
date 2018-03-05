@@ -8,19 +8,28 @@
 					width: 74px;
 					.imgWrap{
 					    padding: 0 10px;
+					    opacity: 0.4;
 					    .img{
 					    	img{
+					    		
 							    width: 100%;
 						        border: #eee 1px solid;
 							}
+							
 					    }
 						
 					}
+					.active_img{
+						opacity: 1;
+					}
 					.film_name{
-					    display: block;
+					    display: none;
 					    text-align: center;
 					    margin: 10px -20px;
 					    color: #fff;
+					}
+					.active_name{
+						display: block;
 					}
 				}
 			}
