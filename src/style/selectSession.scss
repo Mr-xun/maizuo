@@ -1,3 +1,6 @@
+.my-drawer{
+	background: #fff;
+}
 .selectSession{
 	.banner{
 		background-color: #38403e;
@@ -11,13 +14,10 @@
 					    opacity: 0.4;
 					    .img{
 					    	img{
-					    		
 							    width: 100%;
 						        border: #eee 1px solid;
-							}
-							
+							}							
 					    }
-						
 					}
 					.active_img{
 						opacity: 1;
@@ -30,6 +30,31 @@
 					}
 					.active_name{
 						display: block;
+					}
+				}
+			}
+		}
+	}
+	.chooseTime{
+		.chooseTime_title{
+		    border-bottom: 1px solid #e9681f;
+			.swiper-container{
+				.swiper-wrapper{
+					.swiper-slide{
+					    width: 107px;
+						.showTime{
+						    height: 25px;
+						    width: 96px;
+						    margin: 5px 15px;
+						    display: inline-block;
+						    font-size: 10px;
+						    line-height: 25px;
+						    text-align: center;
+						    color: #555;
+						}
+					}
+					.active_time{
+				        border-bottom: 5px solid #e9681f;
 					}
 				}
 			}

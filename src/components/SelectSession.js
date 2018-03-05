@@ -12,19 +12,48 @@ export default class SelectSession extends Component{
 			bannerImg:[],
 			currentIndex:0,
 			filmName:"",
-			schedules:[]
+			schedules:[],
+			showTime:[],
+			currentData:0
 		}
 	}
 	getTime(id,currentIndex){
 		var that = this;
 		axios.get(`/v4/api/schedule?__t=1520134799929&film=0&cinema=${id}`)
 		.then((res)=>{
-			this.setState({schedules:res.data.data.schedules},function(){
+			that.setState({schedules:res.data.data.schedules},function(){
 				var schedules = that.state.schedules;
+				var showTime=[];
 				schedules.map(function(item,index){
 					if(`${item.film.id}` === currentIndex){
-						console.log(item)
+						var now = new Date(item.showAt);
+						var month = now.getMonth()+1;
+						if(month < 10){
+							month = "0" + month
+						}
+						var data = now.getDate();
+						if(data < 10){
+							data = "0" + data
+						}
+						var hh = now.getHours();            //时  
+        				var mm = now.getMinutes();
+						if(showTime.indexOf(month + "/" + data) === -1 ){
+							showTime.push(month + "/" + data)
+						}				
 					}
+				})
+				that.setState({showTime:showTime},function(){
+					console.log
+					var mySwiperTwo = new Swiper(`.timeSwiper`, {
+					slidesPerView : 3,
+					slideToClickedSlide: true,
+					on: {
+					    click: function(){
+					    	var currentData = $(this.clickedSlide).attr("data-currentdata");
+					    	that.setState({currentData:currentData})
+					    }
+					  }
+					})
 				})
 			})
 		})
@@ -32,7 +61,6 @@ export default class SelectSession extends Component{
 	componentDidMount(){
 		var that = this;
 		var  id = this.props.match.params.fid;
-		console.log(id)
 		axios.get(`/v4/api/cinema/${id}/film?__t=1520069232668`)
 		.then((res)=>{
 			this.setState({bannerImg:res.data.data.filmList},function(){
@@ -40,7 +68,7 @@ export default class SelectSession extends Component{
 				var currentFilmName = res.data.data.filmList[0].filmName;
 				that.setState({currentIndex:currentIndex,filmName:currentFilmName})
 				that.getTime(id,currentIndex)
-				var mySwiper = new Swiper(that.refs.swiper, {
+				var mySwiperOne = new Swiper(".imgBaner", {
 				slidesPerView : 4,
 				centeredSlides : true,
 				slideToClickedSlide: true,
@@ -54,18 +82,29 @@ export default class SelectSession extends Component{
 				    }
 				  }
 				})
+				
 			})
 		})
-		
+		var now = new Date();
+		var month = now.getMonth()+1;
+		if(month < 10){
+			month = "0" + month
+		}
+		var data = now.getDate();
+		if(data < 10){
+			data = "0" + data
+		}	
+    	this.setState({currentData:month + "/" + data})
+
 	}
 	render(){
-		console.log(this.state)
 		var currentIndex = this.state.currentIndex;
+		var currentData = this.state.currentData;
 		var filmName = this.state.filmName;
 		return(
 			<div className="selectSession">
 				<div className="banner">
-					<div className="swiper-container" ref="swiper">
+					<div className="swiper-container imgBaner" ref="swiper">
 					  <div className="swiper-wrapper">
 					  	{this.state.bannerImg.map(function(item,index){
 					  		return(
@@ -84,7 +123,17 @@ export default class SelectSession extends Component{
 				</div>
 				<div className="chooseTime">
 					<div className="chooseTime_title">
-						
+						<div className="swiper-container timeSwiper"  >
+						  <div className="swiper-wrapper">
+						 	{this.state.showTime.map(function(item,index){
+						 		return(
+					  				<div className={currentData == item? "swiper-slide timeBanner active_time" : "swiper-slide timeBanner"} data-currentdata={item}  key={item}>
+					  					<div className="showTime">{item}</div>
+					  				</div>
+						 		)
+						 	})}
+						  </div>
+						</div>
 					</div>
 				</div>
 			</div>
